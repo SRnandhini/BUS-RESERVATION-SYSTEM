@@ -1,0 +1,50 @@
+package servlet;
+
+import model.Bus;
+import model.Booking;
+
+import javax.servlet.*;
+import javax.servlet.http.*;
+import java.io.*;
+import java.util.*;
+
+public class BookTicketServlet extends HttpServlet {
+    private List<Booking> bookings;
+
+    public void init() {
+        bookings = new ArrayList<>();
+        getServletContext().setAttribute("bookings", bookings);
+    }
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String name = request.getParameter("passengerName");
+        int busNo = Integer.parseInt(request.getParameter("busNo"));
+
+        List<Bus> buses = (List<Bus>) getServletContext().getAttribute("buses");
+        boolean found = false;
+        String message = "";
+
+        for (Bus bus : buses) {
+            if (bus.getBusNo() == busNo) {
+                if (bus.getCapacity() > 0) {
+                    bus.reduceCapacity();
+                    bookings.add(new Booking(name, busNo));
+                    message = "Booking Confirmed for " + name + " on Bus " + busNo;
+                } else {
+                    message = "Sorry, no seats available on Bus " + busNo;
+                }
+                found = true;
+                break;
+            }
+        }
+
+        if (!found) {
+            message = "Bus Number not found!";
+        }
+
+        response.setContentType("text/html");
+        PrintWriter out = response.getWriter();
+        out.println("<h3>" + message + "</h3>");
+        out.println("<a href='index.html'>Back to Menu</a>");
+    }
+}
