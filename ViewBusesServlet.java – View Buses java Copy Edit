@@ -1,0 +1,30 @@
+package servlet;
+
+import model.Bus;
+import javax.servlet.*;
+import javax.servlet.http.*;
+import java.io.*;
+import java.util.*;
+
+public class ViewBusesServlet extends HttpServlet {
+    private List<Bus> buses;
+
+    public void init() {
+        buses = new ArrayList<>();
+        buses.add(new Bus(101, true, 2));
+        buses.add(new Bus(102, false, 3));
+        buses.add(new Bus(103, true, 1));
+        getServletContext().setAttribute("buses", buses);
+    }
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        List<Bus> buses = (List<Bus>) getServletContext().getAttribute("buses");
+        response.setContentType("text/html");
+        PrintWriter out = response.getWriter();
+        out.println("<h2>Available Buses:</h2>");
+        for (Bus bus : buses) {
+            out.println("Bus No: " + bus.getBusNo() + " | AC: " + (bus.isAc() ? "Yes" : "No") + " | Seats: " + bus.getCapacity() + "<br>");
+        }
+        out.println("<br><a href='index.html'>Back</a>");
+    }
+}
