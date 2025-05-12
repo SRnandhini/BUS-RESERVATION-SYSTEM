@@ -1,0 +1,11 @@
+package model;
+
+public class Booking {
+    private String passengerName;
+    private int busNo;
+
+    public Booking(String passengerName, int busNo) {
+        this.passengerName = passengerName;
+        this.busNo = busNo;
+    }
+}
