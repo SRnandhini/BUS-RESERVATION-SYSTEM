@@ -1,0 +1,108 @@
+import java.util.*;
+
+public class BusReservationSystem {
+    
+    static class Bus {
+        int busNo;
+        boolean ac;
+        int capacity;
+
+        Bus(int busNo, boolean ac, int capacity) {
+            this.busNo = busNo;
+            this.ac = ac;
+            this.capacity = capacity;
+        }
+
+        public int getBusNo() {
+            return busNo;
+        }
+
+        public int getCapacity() {
+            return capacity;
+        }
+
+        public void reduceCapacity() {
+            this.capacity--;
+        }
+
+        public void displayBusInfo() {
+            System.out.println("Bus No: " + busNo + " | AC: " + (ac ? "Yes" : "No") + " | Available Seats: " + capacity);
+        }
+    }
+
+    static class Booking {
+        String passengerName;
+        int busNo;
+
+        Booking(String passengerName, int busNo) {
+            this.passengerName = passengerName;
+            this.busNo = busNo;
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        ArrayList<Bus> buses = new ArrayList<>();
+        ArrayList<Booking> bookings = new ArrayList<>();
+
+        // Predefined Buses
+        buses.add(new Bus(101, true, 2));
+        buses.add(new Bus(102, false, 3));
+        buses.add(new Bus(103, true, 1));
+
+        int choice;
+        do {
+            System.out.println("\n--- BUS RESERVATION SYSTEM ---");
+            System.out.println("1. View Available Buses");
+            System.out.println("2. Book a Ticket");
+            System.out.println("3. Exit");
+            System.out.print("Enter your choice: ");
+            choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    System.out.println("\nAvailable Buses:");
+                    for (Bus bus : buses) {
+                        bus.displayBusInfo();
+                    }
+                    break;
+
+                case 2:
+                    System.out.print("Enter Passenger Name: ");
+                    String name = scanner.next();
+                    System.out.print("Enter Bus Number: ");
+                    int busNo = scanner.nextInt();
+
+                    boolean found = false;
+                    for (Bus bus : buses) {
+                        if (bus.getBusNo() == busNo) {
+                            if (bus.getCapacity() > 0) {
+                                bus.reduceCapacity();
+                                bookings.add(new Booking(name, busNo));
+                                System.out.println("Booking Confirmed for " + name + " on Bus " + busNo);
+                            } else {
+                                System.out.println("Sorry, no seats available on Bus " + busNo);
+                            }
+                            found = true;
+                            break;
+                        }
+                    }
+
+                    if (!found) {
+                        System.out.println("Bus Number not found!");
+                    }
+                    break;
+
+                case 3:
+                    System.out.println("Thank you for using the system.");
+                    break;
+
+                default:
+                    System.out.println("Invalid choice. Try again.");
+            }
+
+        } while (choice != 3);
+
+        scanner.close();
+    }
+}
