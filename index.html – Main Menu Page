@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bus Reservation System</title>
+</head>
+<body>
+    <h1>Bus Reservation System</h1>
+    <ul>
+        <li><a href="view-buses">View Available Buses</a></li>
+        <li><a href="booking.html">Book a Ticket</a></li>
+    </ul>
+</body>
+</html>
