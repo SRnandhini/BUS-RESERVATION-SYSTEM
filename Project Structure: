@@ -1,0 +1,14 @@
+BusReservationSystem/
+├── WebContent/
+│   ├── index.html
+│   ├── booking.html
+│   └── result.jsp
+├── src/
+│   ├── model/
+│   │   ├── Bus.java
+│   │   └── Booking.java
+│   └── servlet/
+│       ├── ViewBusesServlet.java
+│       └── BookTicketServlet.java
+├── WEB-INF/
+│   └── web.xml
