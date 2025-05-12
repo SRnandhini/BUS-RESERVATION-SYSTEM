@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Book a Ticket</title>
+</head>
+<body>
+    <h2>Book Your Ticket</h2>
+    <form action="book-ticket" method="post">
+        Name: <input type="text" name="passengerName" required><br>
+        Bus Number: <input type="number" name="busNo" required><br>
+        <input type="submit" value="Book">
+    </form>
+</body>
+</html>
